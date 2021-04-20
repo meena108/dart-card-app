@@ -1,9 +1,16 @@
 void main () {
   var deck = new Deck();
  
-//   print(deck.toString());
+//   print(deck);
   
-  deck.printCards();
+//   deck.printCards();
+//    deck.shuffle();
+//    deck.printCards();
+//   var hand = deck.deal(6);
+//   print(hand);
+//   deck.printCards();
+  var cards = deck.cardsWithSuit('Clubs');
+  print(cards);
   
 }
 // this is a collection of cards
@@ -18,7 +25,6 @@ class Deck {
     
     // nested for loop
 //     for( int i = 0; i< suits.length; i++) {
-      
 //       for(int j =0; j< ranks.length; j++ ){
 //         //create a new Card and add it to cards
 //         var card = new Card(suits[i], ranks[j]);
@@ -26,25 +32,55 @@ class Deck {
         
 //       }
 //     }
-    
-    for(var suit in suits) {
+    for(var suit in suits){
       for(var rank in ranks){
+        
         var card = new Card(suit,rank);
         cards.add(card);
+        
       }
-      
     }
-    
+//     for(int i= 0;i<suits.length; i++){
+//       var suit = suits[i];
+//     }
   }
   
   void printCards() {
-     print(cards);
+    print(cards);
   }
   
-   @override
+  //randomize ni lekhna milcha
+  shuffle() {
+    
+    cards.shuffle();
+  }
+  
+  deal(int size) {
+    
+    var hand = cards.sublist(0,size);
+    cards = cards.sublist(size);
+    print(cards);
+    return hand;
+  }
+  
+  
+  cardsWithSuit( String color) {
+    
+    List<Card> matched = [];
+    for(var card in cards) {
+      if(card.suit == color) {
+        
+        matched.add(card);
+      }
+    }
+    
+    return matched;
+  }
+  
+  @override
   String toString() {
-     return "It is a deck";
-   }
+    return "It is a deck";
+  }
   
   
 }
