@@ -12,6 +12,9 @@ void main () {
   var cards = deck.cardsWithSuit('Clubs');
   print(cards);
   
+  deck.removeCard("Two", "Clubs");
+  deck.printCards();
+  
 }
 // this is a collection of cards
 class Deck {
@@ -35,7 +38,7 @@ class Deck {
     for(var suit in suits){
       for(var rank in ranks){
         
-        var card = new Card(suit,rank);
+        var card = new Card(suit:suit, rank:rank);
         cards.add(card);
         
       }
@@ -50,12 +53,12 @@ class Deck {
   }
   
   //randomize ni lekhna milcha
-  shuffle() {
+   void shuffle() {
     
     cards.shuffle();
   }
   
-  deal(int size) {
+  List<Card> deal(int size) {
     
     var hand = cards.sublist(0,size);
     cards = cards.sublist(size);
@@ -64,18 +67,43 @@ class Deck {
   }
   
   
-  cardsWithSuit( String color) {
+  List<Card> cardsWithSuit( String color) {
     
-    List<Card> matched = [];
-    for(var card in cards) {
-      if(card.suit == color) {
+//     List<Card> matched = [];
+//     for(var card in cards) {
+//       if(card.suit == color) {
         
-        matched.add(card);
-      }
-    }
+//         matched.add(card);
+//       }
+//     }
     
-    return matched;
+//     return matched;
+  
+//   var matched = cards.where( (card) {
+    
+//     return card.suit == color;
+//   });
+    //     return matched;
+
+     
+     //short tlekhne only for single
+   
+      return cards.where( (singleCard) =>singleCard.suit ==color).toList();
+     
+   }
+   void removeCard (String rank, String suit) {
+    
+    cards.removeWhere( (singleCard) => (singleCard.suit ==suit ) && (singleCard.rank == rank));
+    
   }
+    
+  
+
+ //pahila eterable thiyo ahile list ma chha []. to list le etrate misisng lai lyacubah
+  
+  
+
+  
   
   @override
   String toString() {
@@ -90,7 +118,7 @@ class Card {
   // represents the suit such as Spade, Club
   String suit;
   
-  Card(this.suit, this.rank);
+  Card({this.suit, this.rank});
   
   @override
  String toString(){
